@@ -1,9 +1,3 @@
-'''
-Author: Drifter
-Date: 2023-10-14 12:19:43
-LastEditTime: 2023-10-15 08:42:51
-Description: file content
-'''
 # 科学刀 v1.0
 # 捉包把域名www.kxdao.net请求里面的cookie的值填到变量 kxd_cookie 里
 # 目前仅支持单账号
@@ -34,6 +28,8 @@ def kxd_sign():
     login_status=soup.select_one('div#messagetext p').text.split('。')
     print('=================== 签到状态 ======================')
     if login_status is not None:
+        if len(login_status)>1:
+            print('签到成功!')
         for item in login_status:
             print(item)
     get_user_sign_info(soup)
