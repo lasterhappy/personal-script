@@ -1,3 +1,9 @@
+'''
+Author: Drifter
+Date: 2023-10-14 12:19:43
+LastEditTime: 2023-10-15 08:42:51
+Description: file content
+'''
 # 科学刀 v1.0
 # 捉包把域名www.kxdao.net请求里面的cookie的值填到变量 kxd_cookie 里
 # 目前仅支持单账号
@@ -25,12 +31,11 @@ headers = {
 def kxd_sign():
     response = session.get(kxd_sign_url, headers=headers)
     soup = BeautifulSoup(response.text, 'html.parser')
-    login_status=soup.find('div', class_='alert_error')
+    login_status=soup.select_one('div#messagetext p').text.split('。')
     print('=================== 签到状态 ======================')
-    if login_status is None:
-        print('\n签到成功\n')
-    else:
-        print('\n您已签到完毕，今日已无需再次签到！\n')
+    if login_status is not None:
+        for item in login_status:
+            print(item)
     get_user_sign_info(soup)
 
 # 签到信息
