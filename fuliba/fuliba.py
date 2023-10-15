@@ -154,7 +154,7 @@ if response.status_code == 200:
     user_info_str = "\n".join(user_info)
     assets_info_str = "\n".join(assets_info)
     email_content = f"{ok[0]}\n\n用户信息:\n{user_info_str}\n\n资产信息:\n{assets_info_str}"
-    # send_email('签到通知', email_content)
+    send_email('签到通知', email_content)
 else:
     print(f'今天已签到')
-    # send_email('签到通知', '签到失败')
+    send_email('签到通知', '签到失败')
