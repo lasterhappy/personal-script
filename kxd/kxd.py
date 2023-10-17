@@ -28,7 +28,7 @@ def kxd_sign():
     response = session.get(kxd_sign_url, headers=headers)
     soup = BeautifulSoup(response.text, 'html.parser')
     login_status=soup.select_one('div#messagetext p').text.split('。')
-    print('=================== 签到状态 ======================')
+    print('=================== 签到状态 ======================\n')
     if login_status is not None:
         if len(login_status)>1:
             print('签到成功!')
@@ -39,7 +39,7 @@ def kxd_sign():
 
 # 签到信息
 def get_user_sign_info(html):
-    print('=================== 签到信息 ======================')
+    print('\n=================== 签到信息 ======================')
     sign_info=html.select('div#pperwb_menu strong')
     if sign_info is not None:
         for item in sign_info:
@@ -47,7 +47,7 @@ def get_user_sign_info(html):
 
 # 答题
 def answer():
-    print('=================== 答题状态 ======================')
+    print('=================== 答题状态 ======================\n')
     answer_url='https://www.kxdao.net/plugin.php?id=ahome_dayquestion:pop'
     data={
         'formhash':'64872b19',
@@ -66,7 +66,7 @@ def get_user_info():
     response = session.get(kxd_info_url, headers=headers)
     soup = BeautifulSoup(response.text, 'html.parser')
     info_ul=soup.find('ul',class_='creditl mtm bbda cl')
-    print('=================== 用户信息 ======================')
+    print('\n=================== 用户信息 ======================')
     if info_ul is not None:
         info_li_list=info_ul.find_all('li')
         for item in info_li_list:
