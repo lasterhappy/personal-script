@@ -1,6 +1,8 @@
-# 科学刀 v1.0
-# 捉包把域名www.kxdao.net请求里面的cookie的值填到变量 kxd_cookie 里
-# 目前仅支持单账号
+'''
+科学刀 v1.0
+捉包把域名www.kxdao.net请求里面的cookie的值填到变量 kxd_cookie 里
+目前仅支持单账号
+'''
 
 
 import requests
@@ -33,6 +35,7 @@ def kxd_sign():
         for item in login_status:
             print(item)
     get_user_sign_info(soup)
+    answer()
 
 # 签到信息
 def get_user_sign_info(html):
@@ -41,6 +44,21 @@ def get_user_sign_info(html):
     if sign_info is not None:
         for item in sign_info:
             print(item.text)
+
+# 答题
+def answer():
+    print('=================== 答题状态 ======================')
+    answer_url='https://www.kxdao.net/plugin.php?id=ahome_dayquestion:pop'
+    data={
+        'formhash':'64872b19',
+        'answer':'1',
+        'submit':'true'
+    }
+    session.headers.update({'Content-Type':'multipart/form-data; boundary=----WebKitFormBoundaryBAH2VaSNfhSpmL1c'})
+    response=session.post(answer_url,headers=headers,data=data)
+    soup = BeautifulSoup(response.text, 'html.parser')
+    message_text=soup.select_one('div#messagetext p').text
+    print(message_text)
 
 
 # 获取用户信息
