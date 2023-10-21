@@ -54,7 +54,6 @@ def answer():
         'answer':'1',
         'submit':'true'
     }
-    session.headers.update({'Content-Type':'multipart/form-data; boundary=----WebKitFormBoundaryBAH2VaSNfhSpmL1c'})
     response=session.post(answer_url,headers=headers,data=data)
     soup = BeautifulSoup(response.text, 'html.parser')
     message_text=soup.select_one('div#messagetext p').text
