@@ -1,7 +1,7 @@
 '''
 火锅视频 v1.0
 捉包把域名www.huoguo.video请求里面的Authorization的值(包括Bearer)填到变量 hgsp_cookie 里
-多账号以@分割 账号1@账号2
+多账号以@隔开 账号1@账号2
 注册链接:http://www.huoguo.video/h5/reg.html?invite_code=WYXJ5R
 '''
 import requests
