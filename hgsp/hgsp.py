@@ -13,7 +13,7 @@ import sys
 
 
 class HgSp():
-    VIDEO_F:int = 12 #视频次数
+    VIDEO_F:int = 13 #视频次数
     def __init__(self,auth,index,video_f=VIDEO_F):
         self.video_f=video_f
         self.auth=auth
@@ -49,10 +49,7 @@ class HgSp():
             'count': coin,
         }
         response = self.session.post('http://www.huoguo.video/api/v2/hgb/exchange-savings', headers=self.headers, data=data)
-        if response.json()['message'] is not None:
-            print(f'{self.pre}【兑换储蓄金】{response.json()["message"]}')
-        else:
-            print(f'{self.pre}【兑换储蓄金】{response.json()}')
+        print(f'{self.pre}【兑换储蓄金】{response.json()}')
 
     # 查询信息
     def get_info(self):
@@ -60,7 +57,7 @@ class HgSp():
         if response["message"] is not None:
             print(f'{self.pre}【查询信息】{response["message"]}')
         else:
-            print(f'{self.pre}【查询信息】获得 {response["amount"]}， 余额 {["balance"]}, 储蓄金 {["saving"]}')
+            print(f'{self.pre}【查询信息】获得 {response["amount"]}, 余额 {response["balance"]}, 储蓄金 {response["saving"]}')
 
     def main(self):
         self.watch_video()
