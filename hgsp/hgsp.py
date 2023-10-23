@@ -36,10 +36,10 @@ class HgSp():
     def watch_video(self):
         for i in range(self.video_f):
             response = self.session.get('http://www.huoguo.video/api/v2/hgb/recive', headers=self.headers).json()
-            if response.json()['message'] is not None:
-                print(f'{self.pre}【看视频】{response.json()["message"]}')
+            if response['message'] is not None:
+                print(f'{self.pre}【看视频】{response["message"]}')
             else:
-                print(f'{self.pre}【看视频】{response.json()}')
+                print(f'{self.pre}【看视频】{response}')
             time.sleep(16)
 
     # 兑换储蓄金
