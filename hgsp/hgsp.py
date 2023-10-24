@@ -3,6 +3,7 @@
 变量 hgsp_cookie 账号和密码以@隔开 账号@密码
 多账号以&隔开 账号1@密码1 & 账号2@密码2
 开启自动提现功能 设置变量 export hgsp_wd="true" 默认不开启
+开启自动兑换储蓄金 设置变量 export hgsp_es="true" 默认不开启
 注册链接:http://www.huoguo.video/h5/reg.html?invite_code=WYXJ5R
 '''
 import requests
@@ -13,10 +14,11 @@ import sys
 
 class HgSp():
     VIDEO_F:int = 13 #视频次数
-    def __init__(self,account,hgsp_wd,video_f=VIDEO_F):
+    def __init__(self,account,hgsp_wd,hgsp_es,video_f=VIDEO_F):
         account=account.split('@')
         self.video_f=video_f
         self.hgsp_wd=hgsp_wd
+        self.hgsp_es=hgsp_es
         self.session = requests.Session()
         self.headers={
             'os': 'android',
@@ -56,6 +58,7 @@ class HgSp():
             if '火锅币' not in response['message']:
                 break
             time.sleep(16)
+        self.get_today_info()
 
     # 获取今日信息
     def get_today_info(self):
@@ -66,7 +69,6 @@ class HgSp():
 
     # 兑换储蓄金
     def exchange_saving(self):
-        self.get_today_info()
         data = {'count': self.coin}
         response = self.session.post('http://www.huoguo.video/api/v2/hgb/exchange-savings', headers=self.headers, data=data).json()
         if "amount" in response:
@@ -92,7 +94,8 @@ class HgSp():
 
     def main(self):
         self.watch_video()
-        self.exchange_saving()
+        if self.hgsp_es == 'true':
+            self.exchange_saving()
         self.get_info()
         if self.hgsp_wd == 'true':
             self.withdraw()
@@ -104,13 +107,14 @@ def main():
     global account_list
     account_list=os.getenv("hgsp_cookie").split('&')
     hgsp_wd=os.getenv("hgsp_wd")
+    hgsp_es=os.getenv("hgsp_es")
     if not account_list:
         print('没有获取到账号!')
         return
     print(f'⭐⭐获取到{len(account_list)}个账号')
     for index,account in enumerate(account_list):
         print(f'=================== 第{index + 1}个账号 ======================')
-        HgSp(account,hgsp_wd).login()
+        HgSp(account,hgsp_wd,hgsp_es).login()
 
 if __name__ == '__main__':
     main()
