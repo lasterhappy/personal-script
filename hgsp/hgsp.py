@@ -47,9 +47,9 @@ class HgSp():
         for i in range(self.video_f):
             response = self.session.get('http://www.huoguo.video/api/v2/hgb/recive', headers=self.headers).json()
             if response['message'] is not None:
-                print(f'【看视频】{response["message"]}')
+                print(f'【观看视频】{response["message"]}')
             else:
-                print(f'【看视频】{response}')
+                print(f'【观看视频】{response}')
             time.sleep(16)
 
     # 兑换储蓄金
@@ -77,7 +77,7 @@ class HgSp():
         response = self.session.get('http://www.huoguo.video/api/v2/hgb/detail', headers=self.headers).json()
         self.coin = response['coin']
         self.today_coin = response['today_coin']
-        print(f"今日获得火锅币:{self.today_coin},当前总火锅币:{self.coin}")
+        print(f"【观看视频】今日获得火锅币:{self.today_coin},当前总火锅币:{self.coin}")
 
     def main(self):
         self.login()
