@@ -1,5 +1,5 @@
 '''
-火锅视频 v1.3 update add 提现功能
+火锅视频 v1.4 add 释放储蓄金
 变量 hgsp_cookie 账号和密码以@隔开 账号@密码
 多账号以&隔开 账号1@密码1 & 账号2@密码2
 开启自动提现功能 设置变量 export hgsp_wd="true" 默认不开启
@@ -90,6 +90,13 @@ class HgSp():
         response = self.session.post("http://www.huoguo.video/api/v2/wallet/withdraw", headers=self.headers,data=data).json()
         print(response)
 
+    # 释放储蓄金
+    def release(self):
+        response = self.session.get('http://www.huoguo.video/api/v2/hgb/open', headers=self.headers).json()
+        if "amount" in response:
+            print(f"【释放储蓄金】今日释放{response['amount']}")
+        else:
+            print(f"【释放储蓄金】{response['message']}")
 
 
     def main(self):
@@ -99,6 +106,8 @@ class HgSp():
         self.get_info()
         if self.hgsp_wd == 'true':
             self.withdraw()
+        time.sleep(5)
+        self.release()
 
 
 
