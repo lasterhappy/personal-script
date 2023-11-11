@@ -1,5 +1,5 @@
 '''
-火锅视频 v1.4 add 释放储蓄金
+火锅视频 v1.5 修改观看视频次数
 变量 hgsp_cookie 账号和密码以@隔开 账号@密码
 多账号以&隔开 账号1@密码1 & 账号2@密码2
 开启自动提现功能 设置变量 export hgsp_wd="true" 默认不开启
@@ -13,7 +13,7 @@ import sys
 
 
 class HgSp():
-    VIDEO_F:int = 13 #视频次数
+    VIDEO_F:int = 25 #视频次数
     def __init__(self,account,hgsp_wd,hgsp_es,video_f=VIDEO_F):
         account=account.split('@')
         self.video_f=video_f
