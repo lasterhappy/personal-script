@@ -1,5 +1,5 @@
 '''
-科学刀 v1.0
+科学刀 v2.0
 捉包把域名www.kxdao.net请求里面的cookie的值填到变量 kxd_cookie 里
 目前仅支持单账号
 '''
@@ -11,8 +11,9 @@ import os
 
 cookies= os.environ.get('kxd_cookie')
 
+formhash=""
 kxd_url="https://www.kxdao.net/"
-kxd_sign_url="https://www.kxdao.net/plugin.php?id=dsu_amupper&formhash=64872b19"
+kxd_sign_url="https://www.kxdao.net/plugin.php?id=dsu_amupper&formhash="
 kxd_info_url="https://www.kxdao.net/home.php?mod=spacecp&ac=credit&showcredit=1"
 session = requests.Session()
 headers = {
@@ -25,7 +26,11 @@ headers = {
 
 # 签到
 def kxd_sign():
-    response = session.get(kxd_sign_url, headers=headers)
+    global formhash
+    login_res=session.get(kxd_info_url, headers=headers)
+    soup_login = BeautifulSoup(login_res.text, 'html.parser')
+    formhash=soup_login.select_one("form#scbar_form input[name='formhash']")['value']
+    response = session.get(kxd_sign_url+formhash, headers=headers)
     soup = BeautifulSoup(response.text, 'html.parser')
     login_status=soup.select_one('div#messagetext p').text.split('。')
     print('=================== 签到状态 ======================\n')
@@ -47,10 +52,11 @@ def get_user_sign_info(html):
 
 # 答题
 def answer():
+    global formhash
     print('=================== 答题状态 ======================\n')
     answer_url='https://www.kxdao.net/plugin.php?id=ahome_dayquestion:pop'
     data={
-        'formhash':'64872b19',
+        'formhash':formhash,
         'answer':'1',
         'submit':'true'
     }
@@ -76,4 +82,3 @@ def get_user_info():
 if __name__ == '__main__':
     kxd_sign()
     get_user_info()
-
