@@ -1,10 +1,4 @@
 '''
-Author: Drifter
-Date: 2023-10-14 12:19:43
-LastEditTime: 2024-04-12 09:59:11
-Description: file content
-'''
-'''
 科学刀 v2.0
 捉包把域名www.kxdao.net请求里面的cookie的值填到变量 kxd_cookie 里
 目前仅支持单账号
