@@ -18,9 +18,11 @@ class Wls():
         }
         self.sign_url='https://wulishe.cc/wp-json/b2/v1/userMission'
         self.sign_state_url='https://wulishe.cc/wp-json/b2/v1/getTaskData'
+        self.url='https://wulishe.cc/'
 
     def get_sign_state(self):
         print('=================== 签到状态 ======================')
+        res=self.session.get(self.url,headers=self.headers)#需要先访问页面才有任务
         response=self.session.post(self.sign_state_url,headers=self.headers)
         data=json.loads(response.text)['task']['task_mission']['finish']
         return data
